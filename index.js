@@ -62,9 +62,8 @@ runAxeTest = function(testName, selector) {
     browser.driver.getCapabilities()
       .then((capabilities) => {
         browserName = capabilities.get('browserName');
-        let spec = capabilities.specs[0].split('/');
-        let jsFileName = spec[spec.length - 1];
-        fileName = jsFileName.split('.')[0];
+        specName = capabilities.specs[0].split('/');
+        fileName = spec[spec.length - 1].split('.')[0];
         if (browserName === 'chrome' || browserName === 'firefox') {
           if (params.include) ensureArray(params.include).forEach((item) => builder.include(item));
           if (selector) ensureArray(selector).forEach((item) => builder.include(item));
@@ -263,6 +262,7 @@ function saveReport() {
 
   const htmlTemplateFilename = path.resolve(__dirname, 'report.hbs');
   const htmlReportFilename = path.resolve(process.cwd(), this.config.htmlReportPath, `a11y-${browserName}-${fileName}.html`);
+  console.log("DEBUG: "+htmlReportFilename)
 
   const impactSortWeight = [
     'minor',
@@ -338,6 +338,7 @@ function saveReport() {
   try {
     mkdir(htmlReportFilename);
     fs.writeFileSync(htmlReportFilename, html, 'utf-8');
+    console.log("Report saved under: "+htmlReportFilename);
   } catch (e) {
     throw new Error(`Something went wrong while trying to write htmlReportFilename to ${htmlReportFilename} (${e.message})!`);
   }
