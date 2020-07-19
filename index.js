@@ -62,8 +62,6 @@ runAxeTest = function(testName, selector) {
     browser.driver.getCapabilities()
       .then((capabilities) => {
         browserName = capabilities.get('browserName');
-        specName = capabilities.specs[0].split('/');
-        fileName = spec[spec.length - 1].split('.')[0];
         if (browserName === 'chrome' || browserName === 'firefox') {
           if (params.include) ensureArray(params.include).forEach((item) => builder.include(item));
           if (selector) ensureArray(selector).forEach((item) => builder.include(item));
