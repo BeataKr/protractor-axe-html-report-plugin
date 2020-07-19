@@ -58,6 +58,15 @@ runAxeTest = function(testName, selector) {
   var params = pluginConfig.globalParams;
   const builder = AxeBuilder(browser.driver);
 
+  new Promise((resolve, reject) => {
+    browser.driver.getCapabilities()
+      .then((capabilities) => {
+        const spec = capabilities.specs[0].split('/');
+        const jsFileName = spec[spec.length - 1];
+        fileName = jsFileName.split('.')[0];
+      });
+  });
+
   return new Promise((resolve, reject) => {
     browser.driver.getCapabilities()
       .then((capabilities) => {
@@ -77,6 +86,8 @@ runAxeTest = function(testName, selector) {
         }
       });
   });
+
+  
 }
 
 function ensureArray(potentialArray) {
