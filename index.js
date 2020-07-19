@@ -61,10 +61,11 @@ runAxeTest = function(testName, selector) {
   new Promise((resolve, reject) => {
     browser.driver.getCapabilities()
       .then((capabilities) => {
-        const spec = capabilities.specs[0].split('/');
-        const jsFileName = spec[spec.length - 1];
-        fileName = jsFileName.split('.')[0];
-        console.log("DEBUG fileName:"+fileName);
+        // const spec = capabilities.specs[0].split('/');
+        // const jsFileName = spec[spec.length - 1];
+        // fileName = jsFileName.split('.')[0];
+        // console.log("DEBUG fileName:"+fileName);
+        console.log("capabilities:"+capabilities);
       });
   });
 
