@@ -29,7 +29,7 @@ const allTestResults = [];
 var currentTestResults = [];
 var browserName = '';
 var pluginConfig = {};
-var fileName = '';
+var timeStamp = '';
 
 const green = '\x1b[32m';
 const red = '\x1b[31m';
@@ -52,23 +52,13 @@ function onPrepare() {
   pluginConfig.standardsToReport = getDefault(pluginConfig.standardsToReport, []);
   pluginConfig.htmlReportPath = getDefault(pluginConfig.htmlReportPath, null);
   pluginConfig.globalParams = getDefault(pluginConfig.globalParams, {});
+
+  timeStamp = JSON.stringify(new Date().getTime());
 }
 
 runAxeTest = function(testName, selector) {
   var params = pluginConfig.globalParams;
   const builder = AxeBuilder(browser.driver);
-
-  new Promise((resolve, reject) => {
-    browser.driver.getCapabilities()
-      .then((capabilities) => {
-        // const spec = capabilities.specs[0].split('/');
-        // const jsFileName = spec[spec.length - 1];
-        // fileName = jsFileName.split('.')[0];
-        // console.log("DEBUG fileName:"+fileName);
-        const fileName = capabilities.spec
-        console.log("spec: "+fileName);
-      });
-  });
 
   return new Promise((resolve, reject) => {
     browser.driver.getCapabilities()
@@ -273,8 +263,7 @@ function saveReport() {
   }
 
   const htmlTemplateFilename = path.resolve(__dirname, 'report.hbs');
-  const htmlReportFilename = path.resolve(process.cwd(), this.config.htmlReportPath, `a11y-${browserName}-${fileName}.html`);
-  console.log("DEBUG: "+htmlReportFilename)
+  const htmlReportFilename = path.resolve(process.cwd(), this.config.htmlReportPath, `a11y-${browserName}-${timeStamp}.html`);
 
   const impactSortWeight = [
     'minor',
