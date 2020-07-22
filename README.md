@@ -107,7 +107,7 @@ Enable this plugin in the protractor.conf.js file:
         ignoreAxeFailures: true|false, // If true, aXe failures won't cause the whole test to fail. Defaults to false
         package: 'protractor-axe-report-plugin',
         globalParams: {} // This is a configuration object, see below for more detail.
-        htmlReportPath: path // Path where the `a11y-${browserName}-${timeStamp}.html` report will be saved
+        htmlReportPath: path // Path under which the `a11y-${browserName}-${timeStamp}.html` report(s) will be saved
     }]
   }
 ```
